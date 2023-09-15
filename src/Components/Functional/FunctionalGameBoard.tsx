@@ -33,8 +33,9 @@ export function FunctionalGameBoard({
 }) {
   const [fishGuessInput, setFishGuessInput] = useState("");
   const [fishIndex, setFishIndex] = useState(0);
-
+  const { correctCount, incorrectCount } = currentScore;
   const nextFishToName = initialFishes[fishIndex];
+
   return (
     <div id="game-board">
       <div id="fish-container">
@@ -46,12 +47,12 @@ export function FunctionalGameBoard({
           e.preventDefault();
           fishGuessInput === nextFishToName.name
             ? handleScoreChange({
-                correctCount: currentScore.correctCount + 1,
-                incorrectCount: currentScore.incorrectCount,
+                correctCount: correctCount + 1,
+                incorrectCount: incorrectCount,
               })
             : handleScoreChange({
-                incorrectCount: currentScore.incorrectCount + 1,
-                correctCount: currentScore.correctCount,
+                correctCount: correctCount,
+                incorrectCount: incorrectCount + 1,
               });
           fishIndex === initialFishes.length - 1
             ? handleGameEnd(true)

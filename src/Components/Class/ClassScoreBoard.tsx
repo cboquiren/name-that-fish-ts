@@ -1,16 +1,16 @@
 import { Component } from "react";
 import "./styles/score-board.css";
-
-const incorrectCount = 0;
-const correctCount = 0;
+import { TClassScore } from "./ClassApp";
 const answersLeft = ["trout", "salmon", "tuna", "shark"];
-export class ClassScoreBoard extends Component {
+export class ClassScoreBoard extends Component<{ currentScore: TClassScore }> {
   render() {
+    const { incorrectCount, correctCount } = this.props.currentScore;
+    const totalGuesses = correctCount + incorrectCount;
     return (
       <div id="score-board">
         <div>Incorrect 🔻: {incorrectCount}</div>
         <div id="choices-left">
-          {answersLeft.map((answer) => (
+          {answersLeft.slice(totalGuesses).map((answer) => (
             <div key={answer} className="choice">
               {answer}
             </div>
