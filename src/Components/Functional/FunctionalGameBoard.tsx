@@ -1,8 +1,7 @@
 import "./styles/game-board.css";
 import { useState } from "react";
 import { Images } from "../../assets/Images";
-import { TScore } from "./FunctionalApp";
-
+import { TScore } from "../../types";
 const initialFishes = [
   {
     name: "trout",

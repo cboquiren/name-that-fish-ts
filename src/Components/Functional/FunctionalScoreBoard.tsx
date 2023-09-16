@@ -1,4 +1,4 @@
-import { TScore } from "./FunctionalApp";
+import { TScore } from "../../types";
 import "./styles/score-board.css";
 //  Where the score is presented
 

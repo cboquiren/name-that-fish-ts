@@ -1,4 +1,4 @@
-import { TScore } from "./FunctionalApp";
+import { TScore } from "../../types";
 import "./styles/final-score.css";
 
 export const FunctionalFinalScore = ({ currentScore }: { currentScore: TScore }) => (

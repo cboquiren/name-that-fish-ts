@@ -3,11 +3,6 @@ import { FunctionalScoreBoard } from "./FunctionalScoreBoard";
 import { FunctionalFinalScore } from "./FunctionalFinalScore";
 import { useState } from "react";
 
-export type TScore = {
-  correctCount: number;
-  incorrectCount: number;
-};
-
 export function FunctionalApp() {
   const [currentScore, setCurrentScore] = useState({ correctCount: 0, incorrectCount: 0 });
   const [gameEnd, setGameEnd] = useState(false);

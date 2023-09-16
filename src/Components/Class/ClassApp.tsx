@@ -3,12 +3,6 @@ import { ClassScoreBoard } from "./ClassScoreBoard";
 import { ClassGameBoard } from "./ClassGameBoard";
 import { ClassFinalScore } from "./ClassFinalScore";
 
-export type TClassScore = {
-  correctCount: number;
-  incorrectCount: number;
-  gameEnd: boolean;
-};
-
 export class ClassApp extends Component {
   state = {
     incorrectCount: 0,
@@ -16,13 +10,10 @@ export class ClassApp extends Component {
     gameEnd: false,
   };
   render() {
-    const { gameEnd, incorrectCount, correctCount } = this.state;
+    const { gameEnd } = this.state;
     return (
       <>
         <>
-          <p>
-            {incorrectCount} : {correctCount}
-          </p>
           {!gameEnd && <ClassScoreBoard currentScore={this.state} />}
           {!gameEnd && (
             <ClassGameBoard
@@ -30,10 +21,13 @@ export class ClassApp extends Component {
               handleScoreChange={(e) => {
                 this.setState(e);
               }}
+              handleGameEnd={(e) => {
+                this.setState(e);
+              }}
             />
           )}
         </>
-        {gameEnd && <ClassFinalScore />}
+        {gameEnd && <ClassFinalScore currentScore={this.state} />}
       </>
     );
   }

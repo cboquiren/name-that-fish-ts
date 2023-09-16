@@ -1,7 +1,7 @@
 import { Component } from "react";
 import "./styles/game-board.css";
 import { Images } from "../../assets/Images";
-import { TClassScore } from "./ClassApp";
+import { TScore, TGameOver } from "../../types";
 
 const initialFishes = [
   {
@@ -23,44 +23,42 @@ const initialFishes = [
 ];
 
 export class ClassGameBoard extends Component<{
-  currentScore: TClassScore;
-  handleScoreChange: (scoreUpdate: TClassScore) => void;
+  currentScore: TScore;
+  handleScoreChange: (scoreUpdate: TScore) => void;
+  handleGameEnd: (gameOver: TGameOver) => void;
 }> {
   state = {
     fishGuessInput: "",
     fishIndex: 0,
-    incorrectScore: this.props.currentScore.incorrectCount,
-    correctScore: this.props.currentScore.correctCount,
-    gameEnd: this.props.currentScore.gameEnd,
   };
   render() {
-    const { fishGuessInput, fishIndex, incorrectScore, correctScore, gameEnd } = this.state;
-    const { handleScoreChange } = this.props;
+    const { fishGuessInput, fishIndex } = this.state;
+    const { handleScoreChange, handleGameEnd, currentScore } = this.props;
+    const { correctCount, incorrectCount } = currentScore;
     const nextFishToName = initialFishes[fishIndex];
+
     return (
       <div id="game-board">
         <div id="fish-container">
           <img src={nextFishToName.url} alt={nextFishToName.name} />
         </div>
-        <p>
-          {incorrectScore} : {correctScore}
-        </p>
         <form
           id="fish-guess-form"
           onSubmit={(e) => {
             e.preventDefault();
             fishGuessInput === nextFishToName.name
-              ? this.setState({ correctScore: correctScore + 1 })
-              : this.setState({ incorrectScore: incorrectScore + 1 });
+              ? handleScoreChange({
+                  incorrectCount: incorrectCount,
+                  correctCount: correctCount + 1,
+                })
+              : handleScoreChange({
+                  incorrectCount: incorrectCount + 1,
+                  correctCount: correctCount,
+                });
             fishIndex === initialFishes.length - 1
-              ? this.setState({ gameEnd: true })
+              ? handleGameEnd({ gameEnd: true })
               : this.setState({ fishIndex: fishIndex + 1 });
             this.setState({ fishGuessInput: "" });
-            handleScoreChange({
-              incorrectCount: incorrectScore,
-              correctCount: correctScore,
-              gameEnd: gameEnd,
-            });
           }}
         >
           <label htmlFor="fish-guess">What kind of fish is this?</label>

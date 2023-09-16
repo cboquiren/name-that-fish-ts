@@ -1,8 +1,10 @@
 import { Component } from "react";
 import "./styles/score-board.css";
-import { TClassScore } from "./ClassApp";
+import { TScore } from "../../types";
+
 const answersLeft = ["trout", "salmon", "tuna", "shark"];
-export class ClassScoreBoard extends Component<{ currentScore: TClassScore }> {
+
+export class ClassScoreBoard extends Component<{ currentScore: TScore }> {
   render() {
     const { incorrectCount, correctCount } = this.props.currentScore;
     const totalGuesses = correctCount + incorrectCount;
