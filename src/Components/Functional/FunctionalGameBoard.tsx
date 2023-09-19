@@ -1,39 +1,20 @@
 import "./styles/game-board.css";
 import { useState } from "react";
-import { Images } from "../../assets/Images";
+import { initialFishes } from "../../data";
 import { TScore } from "../../types";
-const initialFishes = [
-  {
-    name: "trout",
-    url: Images.trout,
-  },
-  {
-    name: "salmon",
-    url: Images.salmon,
-  },
-  {
-    name: "tuna",
-    url: Images.tuna,
-  },
-  {
-    name: "shark",
-    url: Images.shark,
-  },
-];
 
 export function FunctionalGameBoard({
   handleScoreChange,
-  handleGameEnd,
   currentScore,
+  totalCount,
 }: {
   handleScoreChange: (scoreUpdate: TScore) => void;
-  handleGameEnd: (Boolean: boolean) => void;
   currentScore: TScore;
+  totalCount: number;
 }) {
   const [fishGuessInput, setFishGuessInput] = useState("");
-  const [fishIndex, setFishIndex] = useState(0);
   const { correctCount, incorrectCount } = currentScore;
-  const nextFishToName = initialFishes[fishIndex];
+  const nextFishToName = initialFishes[totalCount];
 
   return (
     <div id="game-board">
@@ -53,9 +34,6 @@ export function FunctionalGameBoard({
                 correctCount: correctCount,
                 incorrectCount: incorrectCount + 1,
               });
-          fishIndex === initialFishes.length - 1
-            ? handleGameEnd(true)
-            : setFishIndex(fishIndex + 1);
           setFishGuessInput("");
         }}
       >

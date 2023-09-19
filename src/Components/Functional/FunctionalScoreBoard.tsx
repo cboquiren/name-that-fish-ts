@@ -1,22 +1,29 @@
+import { initialFishes } from "../../data";
 import { TScore } from "../../types";
 import "./styles/score-board.css";
 //  Where the score is presented
 
-const answersLeft = ["trout", "salmon", "tuna", "shark"];
-
-export function FunctionalScoreBoard({ currentScore }: { currentScore: TScore }) {
+export function FunctionalScoreBoard({
+  currentScore,
+  totalCount,
+}: {
+  currentScore: TScore;
+  totalCount: number;
+}) {
   const { correctCount, incorrectCount } = currentScore;
-  const totalGuesses = correctCount + incorrectCount;
 
   return (
     <div id="score-board">
       <div>Incorrect 🔻: {incorrectCount}</div>
       <div id="choices-left">
-        {answersLeft.slice(totalGuesses).map((answer) => (
-          <div key={answer} className="choice">
-            {answer}
-          </div>
-        ))}
+        {initialFishes
+          .map((fish) => fish.name)
+          .slice(totalCount)
+          .map((answer) => (
+            <div key={answer} className="choice">
+              {answer}
+            </div>
+          ))}
       </div>
       <div>Correct ✅: {correctCount}</div>
     </div>
